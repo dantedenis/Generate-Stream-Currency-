@@ -24,8 +24,10 @@ test:
 	 go test ./...
 
 coverage:
-	go test -coverprofile=${COVER_FILE} ./...
+	go test -coverprofile ${COVER_FILE_TEMP} ./...
+	cat ${COVER_FILE_TEMP} | grep -v '.pb.go|mock_' > ${COVER_FILE}
 	go tool cover -html=${COVER_FILE}
+	rm ${COVER_FILE_TEMP}
 
 test_clean:
 	rm ${COVER_FILE}
