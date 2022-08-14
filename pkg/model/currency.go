@@ -39,7 +39,7 @@ func (c *Currency) RunGenerate() (err error) {
 	end = endTime.Unix()
 
 	for _, p := range pairSlice {
-		c.Value[p] = newRate()
+		c.Value[p] = NewRate()
 	}
 
 	for key, val := range c.Value {

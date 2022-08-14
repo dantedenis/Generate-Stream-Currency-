@@ -33,6 +33,6 @@ func (s *Server) Run() error {
 }
 
 func (s *Server) configureRouter() {
-	s.fastRouter.GET("/values", s.GetValues)
+	s.fastRouter.GET("/values", s.getValues)
 	s.fastRouter.GET("/health", s.health)
 }

@@ -22,7 +22,7 @@ type Rater struct {
 	Rate    map[time.Time]float64
 }
 
-func newRate() *Rater {
+func NewRate() *Rater {
 	return &Rater{
 		limiter: make(chan time.Time, 100),
 		Rate:    map[time.Time]float64{},
@@ -52,8 +52,9 @@ type pair struct {
 
 func (r *Rater) Worker(ctx context.Context, k string) {
 	value := make(chan pair)
+
 	go func() {
-		generator(value)
+		generator(ctx, value)
 	}()
 
 	for {
@@ -71,15 +72,21 @@ func (r *Rater) Worker(ctx context.Context, k string) {
 	}
 }
 
-func generator(c chan pair) {
+func generator(ctx context.Context, ch chan pair) {
+	defer close(ch)
+
 	for {
-		switch {
-		case rand.Float64() < chance:
-			time.Sleep(50 * time.Millisecond)
+		select {
+		case <-ctx.Done():
+			return
 		default:
-			c <- pair{
-				t: time.Unix(rand.Int63n(end-start)+start, 0),
-				f: math.Floor(rand.Float64()*10000) / 10000,
+			if rand.Float64() > chance {
+				ch <- pair{
+					t: time.Unix(rand.Int63n(end-start)+start, 0),
+					f: math.Floor(rand.Float64()*10000) / 10000,
+				}
+			} else {
+				time.Sleep(50 * time.Millisecond)
 			}
 		}
 	}

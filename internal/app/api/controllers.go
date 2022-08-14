@@ -8,10 +8,11 @@ import (
 )
 
 func (s *Server) health(ctx *fasthttp.RequestCtx) {
+	log.Println("handle health")
 	ctx.SetStatusCode(http.StatusOK)
 }
 
-func (s *Server) GetValues(ctx *fasthttp.RequestCtx) {
+func (s *Server) getValues(ctx *fasthttp.RequestCtx) {
 	target := string(ctx.FormValue("target"))
 	if target == "" {
 		ctx.SetStatusCode(http.StatusOK)

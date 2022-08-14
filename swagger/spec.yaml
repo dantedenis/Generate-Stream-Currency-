@@ -1,0 +1,34 @@
+openapi: 3.0.3
+info:
+  title: Title
+  description: Title
+  version: 1.0.0
+servers:
+  - url: 'localhost:8080'
+paths:
+  "/health":
+    get:
+      description: Returns status 200
+      responses:
+        "200":
+          description: server health responses
+        "405":
+          description: Method Not Allowed
+          content:
+            'application/json': { }
+  "/values?taget={currencyPair}":
+    get:
+      description: Returns json-value pair data-coast
+      responses:
+        "200":
+          description: Returns 200 when nope Pair or successful request
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/pkg/model/rater.go'
+        "405":
+          description: Method Not Allowed
+          content:
+            'application/json': { }
