@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"generate_stream_currency/internal/app/api"
 	"generate_stream_currency/pkg/cache"
 	"log"
@@ -18,7 +19,7 @@ func main() {
 	}
 
 	serv := api.NewServer(service)
-	err = serv.Run()
+	err = serv.Run(context.Background())
 	if err != nil {
 		log.Fatalln(err)
 	}

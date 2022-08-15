@@ -3,6 +3,7 @@ host_all: host_build host_run
 
 BINARY_NAME=generate_service
 COVER_FILE=coverage.out
+COVER_FILE_TEMP=coverage.temp.out
 
 host_build:
 	go mod download

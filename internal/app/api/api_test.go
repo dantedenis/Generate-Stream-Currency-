@@ -1,6 +1,7 @@
 package api
 
 import (
+	"context"
 	"fmt"
 	mock_contract "generate_stream_currency/mock"
 	"generate_stream_currency/pkg/model"
@@ -12,6 +13,7 @@ import (
 	"log"
 	"net"
 	"testing"
+	"time"
 )
 
 func Test_Health(t *testing.T) {
@@ -85,4 +87,11 @@ func startServerOnPort(t *testing.T, port string, h fasthttp.RequestHandler) io.
 	}()
 
 	return ln
+}
+
+func TestServer_Run(t *testing.T) {
+	serv := NewServer(nil)
+	ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(500*time.Millisecond))
+	defer cancel()
+	assert.Nil(t, serv.Run(ctx))
 }

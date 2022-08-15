@@ -2,7 +2,6 @@ package model
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"math"
 	"math/rand"
@@ -29,7 +28,7 @@ func NewRate() *Rater {
 	}
 }
 
-func (r *Rater) Add(k time.Time, v float64) error {
+func (r *Rater) Add(k time.Time, v float64) {
 	r.Lock()
 	defer r.Unlock()
 	if len(r.Rate) > 99 {
@@ -37,11 +36,8 @@ func (r *Rater) Add(k time.Time, v float64) error {
 	}
 	if _, ok := r.Rate[k]; !ok {
 		r.Rate[k] = v
-	} else {
-		return fmt.Errorf("value is exist")
 	}
 	r.limiter <- k
-	return nil
 }
 
 // /// ---- logic worker for pair-value
@@ -64,10 +60,7 @@ func (r *Rater) Worker(ctx context.Context, k string) {
 			return
 		default:
 			t := <-value
-			err := r.Add(t.t, t.f)
-			if err != nil {
-				log.Println(err, k)
-			}
+			r.Add(t.t, t.f)
 		}
 	}
 }

@@ -11,19 +11,12 @@ import (
 
 func Test_Rate(t *testing.T) {
 	c := NewRate()
-	tm := time.Time{}
+	var tm time.Time
 	for i := 0; i < 150; i++ {
 		tm = time.Unix(rand.Int63(), 0)
-		assert.Nil(t, c.Add(tm, 123123.13))
+		c.Add(tm, 123123.13)
 	}
-	assert.NotNil(t, c.Add(tm, 6674.2))
-}
 
-func Test_Rate2(t *testing.T) {
-	c := NewRate()
-
-	assert.Nil(t, c.Add(time.Time{}, 123123.13))
-	assert.NotNil(t, c.Add(time.Time{}, 6674.2))
 }
 
 func Test(t *testing.T) {
@@ -35,6 +28,7 @@ func TestCurrency_RunGenerate(t *testing.T) {
 	c := &Currency{}
 
 	assert.Nil(t, c.RunGenerate())
+	assert.NotNil(t, c.GetVal("USDRUB"))
 }
 
 func TestCurrency_RunGenerate_error1(t *testing.T) {

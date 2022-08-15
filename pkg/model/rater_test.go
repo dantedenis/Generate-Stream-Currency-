@@ -61,15 +61,11 @@ func Test_Generator(t *testing.T) {
 			}
 			if temp.f < 0 {
 				t.Error("returns error value float", temp.f)
-				//return
-			}
-			if !temp.t.Before(time.Unix(end, 0)) {
-				t.Error("returns error value:", temp.t, "before", time.Unix(end, 0))
-				//return
-			}
-			if !temp.t.After(time.Unix(start, 0)) {
-				t.Error("returns error value:", temp.t, "after", time.Unix(start, 0))
 			}
 		}
 	}
+}
+
+func TestCurrency_GetVal(t *testing.T) {
+
 }

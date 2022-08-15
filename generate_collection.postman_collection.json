@@ -7,7 +7,38 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:8080/health",
+			"name": "health",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USDRUB",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -44,7 +75,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/values?target=USDRUB",
+			"name": "EURUSD",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -81,7 +112,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/values?target=EURUSD",
+			"name": "USDJPY",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -118,7 +149,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/values?target=USDJPY",
+			"name": "USDRUB",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -155,44 +186,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:8080/values?target=USDRUB",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/values?target=USDRUB",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"values"
-					],
-					"query": [
-						{
-							"key": "target",
-							"value": "USDRUB"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8080/values?target=GBPJPY",
+			"name": "GBPJPY",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},

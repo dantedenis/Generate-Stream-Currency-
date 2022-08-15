@@ -1,12 +1,12 @@
 package api
 
 import (
+	"context"
 	"generate_stream_currency/internal/app/contract"
 	"github.com/fasthttp/router"
 	"github.com/valyala/fasthttp"
 	"log"
 	"os"
-	"strings"
 )
 
 type Server struct {
@@ -25,11 +25,15 @@ func NewServer(serv contract.ApiService) *Server {
 	return s
 }
 
-func (s *Server) Run() error {
-	port := strings.Join([]string{":", os.Getenv("SERV_PORT")}, "")
+func (s *Server) Run(ctx context.Context) (err error) {
+	port := os.Getenv("SERV_PORT")
 	log.Println("Service will be started on", port)
 
-	return fasthttp.ListenAndServe(port, s.fastRouter.Handler)
+	go func() {
+		err = fasthttp.ListenAndServe(port, s.fastRouter.Handler)
+	}()
+	<-ctx.Done()
+	return err
 }
 
 func (s *Server) configureRouter() {
